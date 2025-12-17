@@ -2,8 +2,8 @@
   "name": "repro-tsgo-hang",
   "type": "module",
   "scripts": {
-    "tsc": "tsc --noEmit",
-    "tsgo": "tsgo"
+    "demo:works": "tsc --noEmit",
+    "demo:hangs": "tsgo"
   },
   "devDependencies": {
     "@typescript/native-preview": "latest",

@@ -1,10 +1,10 @@
 /**
  * tsgo hang reproduction
- * 
+ *
  * pnpm install
- * pnpm tsc    # completes
- * pnpm tsgo   # hangs
- * 
+ * pnpm demo:works  # tsc completes
+ * pnpm demo:hangs  # tsgo hangs
+ *
  * Trigger: declaration:true + class/namespace merge + recursive types
  */
 
