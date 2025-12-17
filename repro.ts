@@ -9,6 +9,7 @@
  *
  * Remarks:
  * - exporting Thing_ fixes hang
+ * - removing declaration:true fixes hang
  */
 
 type U<

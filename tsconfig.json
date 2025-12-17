@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
     "noEmit": true,
     "declaration": true
   },
