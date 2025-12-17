@@ -8,9 +8,9 @@
  * Trigger: declaration:true + class/namespace merge + recursive types
  */
 
-type Update<$Obj, $Path extends string, $Value> = $Path extends `${infer Key}.${infer Rest}`
+type U<$Obj, $Path extends string, $Value> = $Path extends `${infer Key}.${infer Rest}`
   ? $Obj extends Record<any, any>
-    ? Key extends keyof $Obj ? Omit<$Obj, Key> & { [k in Key]: Update<$Obj[k], Rest, $Value> }
+    ? Key extends keyof $Obj ? Omit<$Obj, Key> & { [k in Key]: U<$Obj[k], Rest, $Value> }
     : $Obj
   : $Obj
   : $Obj extends Record<any, any>
@@ -18,20 +18,18 @@ type Update<$Obj, $Path extends string, $Value> = $Path extends `${infer Key}.${
     : $Obj
   : $Obj
 
-type Append<$T extends readonly any[], $E> = [...$T, $E]
-
-export class Param {
+export class A {
   static fromString = <const $input extends string>(
-    $input: Param.Analyze<$input> extends { long: string } ? $input : never,
+    input: A.Analyze<$input> extends { long: string } ? $input : never,
   ) => null as any
 }
 
-export namespace Param {
+export namespace A {
   export type Name = { aliases: string[]; long: string | null }
   export type NameEmpty = { aliases: []; long: null }
 
   type Add<$N extends Name, $V extends string> =
-    $N['long'] extends null ? Update<$N, 'long', $V> : Update<$N, 'aliases', Append<$N['aliases'], $V>>
+    $N['long'] extends null ? U<$N, 'long', $V> : U<$N, 'aliases', [...$N['aliases'], $V]>
 
   export type Analyze<$E extends string, $N extends Name = NameEmpty> = _Analyze<$E, $N>
 
