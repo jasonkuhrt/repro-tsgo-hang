@@ -1,0 +1,13 @@
+{
+  "name": "repro-tsgo-hang",
+  "type": "module",
+  "scripts": {
+    "tsc": "tsc --noEmit",
+    "tsgo": "tsgo"
+  },
+  "devDependencies": {
+    "@typescript/native-preview": "latest",
+    "effect": "^3.16.4",
+    "typescript": "^5.7.2"
+  }
+}
