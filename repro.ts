@@ -20,9 +20,7 @@ type U<
                     any
 
 export class A {
-  static fromString = <$input>(
-    input: A.Thing<$input, A.NameEmpty>
-  ) => null as any
+  static fromString = <$input>(input: A.Thing<$input, A.NameEmpty>) => null as any
 }
 
 export namespace A {
