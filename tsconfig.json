@@ -3,8 +3,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "noEmit": true,
-    "skipLibCheck": true,
     "declaration": true
   },
-  "include": ["src/repro.ts"]
+  "include": ["repro.ts"]
 }
