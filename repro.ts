@@ -5,8 +5,6 @@
  * pnpm demo:works  # tsc completes
  * pnpm demo:hangs  # tsgo hangs
  *
- * Trigger: declaration:true + class/namespace merge + recursive types
- *
  * Remarks:
  * - exporting Thing_ fixes hang
  * - removing declaration:true fixes hang
@@ -17,12 +15,9 @@ type U<
   $B,
   $C
 > =
-
-$B extends ``
-  ? any
-  : $A extends any
-    ? Omit<$A, ''> & { [_ in $B & string]: $C }
-  : any
+  $B extends 0    ? any :
+  $A extends any  ? Omit<$A, 0> & $C :
+                    any
 
 export class A {
   static fromString = <$input>(
@@ -36,11 +31,11 @@ export namespace A {
 
   type Add<
     $A extends Name,
-    $B extends string
+    $B
   > =
-    $A['a'] extends null
-    ? U<$A, 'a', $B>
-    : U<$A, 'b', [...$A['b'], $B]>
+    $A['a'] extends any
+      ? U<$A, '', $B>
+      : U<$A, '', $B>
 
   export type Thing<
     $A,
