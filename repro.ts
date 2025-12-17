@@ -22,31 +22,34 @@ $B extends ``
 
 export class A {
   static fromString = <const $input extends string>(
-    input: A.Thing<$input> extends { long: string } ? $input : never,
+    input: A.Thing<$input, A.NameEmpty> extends { long: string } ? $input : never,
   ) => null as any
 }
 
 export namespace A {
-  export type Name = { aliases: string[]; long: string | null }
+  export type Name = { aliases: any[]; long: any }
   export type NameEmpty = { aliases: []; long: null }
 
   type Add<
-    $N extends Name,
-    $V extends string
+    $A extends Name,
+    $B extends string
   > =
-    $N['long'] extends null
-    ? U<$N, 'long', $V>
-    : U<$N, 'aliases', [...$N['aliases'], $V]>
+    $A['long'] extends null
+    ? U<$A, 'long', $B>
+    : U<$A, 'aliases', [...$A['aliases'], $B]>
 
   export type Thing<
-    $E extends string,
-    $N extends Name = NameEmpty
+    $A extends string,
+    $B extends Name
   > =
-    _Thing<$E, $N>
+    Thing_<$A, $B>
 
-  type _Thing<$E extends string, $N extends Name> =
-    $E extends `` ? $N :
-    $E extends `${infer v} ${infer tail}` ? _Thing<tail, Add<$N, v>> :
-    $E extends `${infer v}` ? Add<$N, v> :
+  type Thing_<
+    $A,
+    $B extends Name
+  > =
+    $A extends `` ? $B :
+    $A extends `${infer v} ${infer tail}` ? Thing_<tail, Add<$B, v>> :
+    $A extends `${infer v}` ? Add<$B, v> :
     'unknown'
 }
