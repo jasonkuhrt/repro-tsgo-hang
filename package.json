@@ -2,7 +2,7 @@
   "name": "repro-tsgo-hang",
   "type": "module",
   "scripts": {
-    "demo:works": "tsc --noEmit",
+    "demo:works": "tsc",
     "demo:hangs": "tsgo"
   },
   "devDependencies": {
