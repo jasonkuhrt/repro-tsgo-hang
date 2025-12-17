@@ -8,6 +8,7 @@
  * Remarks:
  * - exporting Thing_ fixes hang
  * - removing declaration:true fixes hang
+ * - removing namespace wrapper fixes hang
  */
 
 type U<
