@@ -6,40 +6,43 @@
  * pnpm demo:hangs  # tsgo hangs
  *
  * Trigger: declaration:true + class/namespace merge + recursive types
+ *
+ * Remarks:
+ * - exporting Thing_ fixes hang
  */
 
 type U<
   $A,
-  $B extends string,
+  $B,
   $C
 > =
 
 $B extends ``
   ? any
   : $A extends any
-    ? Omit<$A, ''> & { [_ in $B]: $C }
+    ? Omit<$A, ''> & { [_ in $B & string]: $C }
   : any
 
 export class A {
-  static fromString = <const $input extends string>(
-    input: A.Thing<$input, A.NameEmpty> extends { long: string } ? $input : never,
+  static fromString = <$input>(
+    input: A.Thing<$input, A.NameEmpty>
   ) => null as any
 }
 
 export namespace A {
-  export type Name = { aliases: any[]; long: any }
-  export type NameEmpty = { aliases: []; long: null }
+  export type Name = { b: any[]; a: any }
+  export type NameEmpty = { b: []; a: null }
 
   type Add<
     $A extends Name,
     $B extends string
   > =
-    $A['long'] extends null
-    ? U<$A, 'long', $B>
-    : U<$A, 'aliases', [...$A['aliases'], $B]>
+    $A['a'] extends null
+    ? U<$A, 'a', $B>
+    : U<$A, 'b', [...$A['b'], $B]>
 
   export type Thing<
-    $A extends string,
+    $A,
     $B extends Name
   > =
     Thing_<$A, $B>
